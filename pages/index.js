@@ -1,6 +1,8 @@
+import App from "../src/components/App";
+
 function IndexPage() {
     return (
-        <div>Lang Cards</div>
+        <App/>
     );
 }
 
