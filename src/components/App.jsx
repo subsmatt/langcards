@@ -1,18 +1,15 @@
 import Header from "./Header";
-import Toolbar from "./Toolbar";
-import { ThemeContext } from "../contexts/ThemeContext";
-import { useState } from "react";
 import PageContent from "./PageContent";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 function App(){
-    const [theme, setTheme] = useState("light");
+    const startingTheme = "light";
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeProvider startingTheme={startingTheme}>
             <Header />
-            <Toolbar />
             <PageContent />
-        </ThemeContext.Provider>
+        </ThemeProvider>
     );
 }
 

@@ -1,10 +1,12 @@
 import { ThemeContext } from "../contexts/ThemeContext";
-import {useState, useContext} from "react";
+import { ToolbarContext } from "../contexts/ToolbarContext";
+import { useState, useContext } from "react";
 
 function Toolbar(){
-    const {theme, setTheme} = useContext(ThemeContext);
     const [showDesc, setShowDesc] = useState(true);
-    const [searchQuery, setSearchQuery] = useState("");
+    const {theme, setTheme} = useContext(ThemeContext);
+    const {searchQuery, setSearchQuery} = useContext(ToolbarContext);
+
     const extraThemeClass = theme === "light" ? "" : "bg-gradient"
 
     return (
