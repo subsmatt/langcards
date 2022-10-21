@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CardContext, CardProvider } from "../contexts/CardContext";
 
-function CardFamiliar({familiar, onFamiliarToggle}){
+function CardFamiliar(){
     const [inTransition, setInTransition] =  useState(false);
+    const {rec, updateRecord} = useContext(CardContext);
+    //const {familiar} = rec;
 
     function doneCallback(){
         console.log(`In CardFamiliar:doneCallback ${new Date().getMilliseconds()}`);
@@ -11,9 +14,9 @@ function CardFamiliar({familiar, onFamiliarToggle}){
     return (
         <div className="oCardFavorite">
             <span>Familiar?</span>            
-            <i className={familiar ? "fa fa-star pull-right" : "fa fa-star-o pull-right"} onClick={function() {
+            <i className={rec.familiar ? "fa fa-star pull-right" : "fa fa-star-o pull-right"} onClick={function() {
                 setInTransition(true);
-                onFamiliarToggle(doneCallback);
+                updateRecord({...rec, familiar: !rec.familiar}, doneCallback);
             }}></i>
             {inTransition ? (<span className="fas fa-circle-notch fa-spin"></span>) : null}
         </div>

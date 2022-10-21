@@ -1,0 +1,82 @@
+{
+  "cards": [
+    {
+      "id": "1006",
+      "lang": "es",
+      "word": "cerveza",
+      "desc_lang": "en",
+      "desc": "beer",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": true,
+      "iknowthis": false
+    },
+    {
+      "id": "1001",
+      "lang": "es",
+      "word": "manzana",
+      "desc_lang": "en",
+      "desc": "apple",
+      "tags": [
+        "fruit",
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1002",
+      "lang": "es",
+      "word": "queso",
+      "desc_lang": "en",
+      "desc": "cheese",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1003",
+      "lang": "es",
+      "word": "naranja",
+      "desc_lang": "en",
+      "desc": "Orange",
+      "tags": [
+        "fruit",
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1005",
+      "lang": "es",
+      "word": "fresa",
+      "desc_lang": "en",
+      "desc": "strawberry",
+      "tags": [
+        "fruit",
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    }
+  ]
+}
