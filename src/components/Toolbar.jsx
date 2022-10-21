@@ -3,9 +3,8 @@ import { ToolbarContext } from "../contexts/ToolbarContext";
 import { useState, useContext } from "react";
 
 function Toolbar(){
-    const [showDesc, setShowDesc] = useState(true);
     const {theme, setTheme} = useContext(ThemeContext);
-    const {searchQuery, setSearchQuery} = useContext(ToolbarContext);
+    const {searchQuery, setSearchQuery, showDesc, setShowDesc} = useContext(ToolbarContext);
 
     const extraThemeClass = theme === "light" ? "" : "bg-gradient"
 
