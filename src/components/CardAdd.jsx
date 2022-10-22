@@ -1,4 +1,8 @@
-function CardAdd({insertRecord}){
+import withAuth from "./withAuth";
+
+function CardAdd({insertRecord, loggedInUser}){
+    if (!loggedInUser || loggedInUser.length === 0) return null;
+
     return(
         <a href="#" className="">
             <i onClick={(e) => {
@@ -25,4 +29,4 @@ function CardAdd({insertRecord}){
     );
 }
 
-export default CardAdd;
+export default withAuth(CardAdd);

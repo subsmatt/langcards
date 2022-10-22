@@ -1,9 +1,33 @@
 import { ThemeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
+import withAuth from "./withAuth";
 
-function Header() {
+function Header({loggedInUser, setLoggedInUser}) {
     const {theme} = useContext(ThemeContext);
     const extraThemeClass = theme === "light" ? "" : "bg-opacity-75"
+    
+    function LoggedIn({loggedInUser, setLoggedInUser}){
+        return (
+            <div>
+                <span className="mx-2">Hello {loggedInUser}</span>
+                <button className="btn btn-secondary" onClick={() => {
+                    setLoggedInUser("");
+                }}>Log Out</button>
+            </div>
+        );
+    }
+
+    function NotLoggedIn({loggedInUser, setLoggedInUser}){
+        return (
+            <div>
+                <button className="btn btn-secondary" onClick={(e) => {
+                    e.preventDefault();
+                    const username = window.prompt("Enter Login Name:", "");
+                    setLoggedInUser(username);
+                }}>Log In</button>
+            </div>
+        );
+    }
 
     return (
         <div className={`container bg-${theme} text-bg-${theme} ${extraThemeClass} p-2` }>
@@ -17,14 +41,14 @@ function Header() {
                     </h4>
                 </div>
                 <div className="text-info my-auto">
-                    Hello Mr Smith&nbsp;
-                    <span>
-                        <a href="#">Sign Out</a>
-                    </span>
+                    {(loggedInUser && loggedInUser.length > 0) ?
+                        <LoggedIn loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}></LoggedIn> :
+                        <NotLoggedIn loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}></NotLoggedIn> 
+                    }
                 </div>
             </div>
         </div>
     );
 }
 
-export default Header;
+export default withAuth(Header);
