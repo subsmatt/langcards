@@ -1,7 +1,7 @@
 import { ToolbarContext } from "../contexts/ToolbarContext";
 import { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setTheme } from "../redux/reducers/toolbarSlice";
+import { changeTheme } from "../redux/reducers/toolbarSlice";
 
 function Toolbar(){
     // Get theme settings
@@ -35,7 +35,7 @@ function Toolbar(){
                 <li className="d-flex flex-column flex-md-row ml-sm-5 align-items-center">
                     <b>Theme&nbsp;&nbsp;</b>
                     <label className="dropdown">
-                        <select className="form-control theme" value={theme} onChange={(event) => dispatch(setTheme(event.target.value))}>
+                        <select className="form-control theme" value={theme} onChange={(event) => dispatch(changeTheme(event.target.value))}>
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
                         </select>

@@ -1,6 +1,81 @@
 {
   "cards": [
     {
+      "id": "1016",
+      "lang": "es",
+      "word": "cereza",
+      "desc_lang": "en",
+      "desc": "cherry",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1015",
+      "lang": "es",
+      "word": "helado",
+      "desc_lang": "en",
+      "desc": "icecream",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1014",
+      "lang": "es",
+      "word": "vino",
+      "desc_lang": "en",
+      "desc": "wine",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1013",
+      "lang": "es",
+      "word": "pina",
+      "desc_lang": "en",
+      "desc": "pinapple",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1012",
+      "lang": "es",
+      "word": "limon",
+      "desc_lang": "en",
+      "desc": "lemon",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
       "id": "1011",
       "lang": "es",
       "word": "jamon",
@@ -32,21 +107,6 @@
     },
     {
       "id": "1009",
-      "lang": "es",
-      "word": "pan",
-      "desc_lang": "en",
-      "desc": "bread",
-      "tags": [
-        "food"
-      ],
-      "type": "noun",
-      "hits": 0,
-      "examples": [],
-      "familiar": false,
-      "iknowthis": false
-    },
-    {
-      "id": "1008",
       "lang": "es",
       "word": "pan",
       "desc_lang": "en",

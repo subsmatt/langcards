@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useSpeakerFilter(startingShowDesc) {
+function useToolbarFilter(startingShowDesc) {
     const [showDesc, setShowDesc] = useState(startingShowDesc);
     const [searchQuery, setSearchQuery] = useState("");
 

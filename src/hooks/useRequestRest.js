@@ -61,7 +61,16 @@ function useRequestRest() {
 
     function insertRecord(record, doneCallback){
         const originalRecords = [...data];
-        const newRecords = [record, ...data];
+
+        // Set new ID to be max id + 1
+        const idNew = originalRecords.reduce((acc, current) => {
+            const idCurrent = parseInt(current.id);
+            return idCurrent > acc ? idCurrent : acc;
+        }, 0) + 1;
+        const newRec = {...record, id: idNew}
+
+
+        const newRecords = [newRec, ...data];
 
         async function delayFunction(){
             try {

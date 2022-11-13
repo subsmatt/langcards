@@ -3,30 +3,25 @@ import { createSlice } from '@reduxjs/toolkit'
 export const toolbarSlice = createSlice({
   name: 'toolbar',
   initialState: {
-    value: 0,
     theme: 'light',
   },
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    },
-    setTheme: (state, action) => {
-      state.theme = action.payload
+    changeTheme: (state, action) => {
+      // Make sure theme is set to a known value
+      function validateTheme(themeValue) {
+        if (themeValue === "dark") {
+          return "dark";
+        } else {
+          return "light";
+        }
+      }
+
+      state.theme = validateTheme(action.payload);
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount, setTheme } = toolbarSlice.actions
+export const { changeTheme } = toolbarSlice.actions
 
 export default toolbarSlice.reducer
