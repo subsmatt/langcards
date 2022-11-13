@@ -1,5 +1,5 @@
 import { useContext, memo } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useSelector } from "react-redux";
 import { ToolbarContext } from "../contexts/ToolbarContext";
 import { CardContext, CardProvider } from "../contexts/CardContext";
 import CardFamiliar from "./CardFamiliar";
@@ -9,8 +9,8 @@ import ErrorBoundary from "./ErrorBoundary";
 const CardNoErrorBoundary = memo(function CardNoErrorBoundary({rec, updateRecord, insertRecord, deleteRecord}){
     const {id, word, type, desc, tags, hits, familiar} = rec;
 
-    // Get theme Context
-    const {theme} = useContext(ThemeContext);
+    // Get theme settings
+    const theme = useSelector((state) => state.toolbar.theme);
     const extraThemeCardClass = theme === "light" ? "" : "bg-gradient"
 
     // Get toolbar Context

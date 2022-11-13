@@ -1,9 +1,9 @@
-import { ThemeContext } from "../contexts/ThemeContext";
-import { useContext } from "react";
 import withAuth from "./withAuth";
+import { useSelector } from "react-redux";
 
 function Header({loggedInUser, setLoggedInUser}) {
-    const {theme} = useContext(ThemeContext);
+    // Get theme settings
+    const theme = useSelector((state) => state.toolbar.theme);
     const extraThemeClass = theme === "light" ? "" : "bg-opacity-75"
     
     function LoggedIn({loggedInUser, setLoggedInUser}){

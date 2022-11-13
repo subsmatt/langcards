@@ -1,6 +1,81 @@
 {
   "cards": [
     {
+      "id": "1011",
+      "lang": "es",
+      "word": "jamon",
+      "desc_lang": "en",
+      "desc": "ham",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1010",
+      "lang": "es",
+      "word": "agua",
+      "desc_lang": "en",
+      "desc": "water",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1009",
+      "lang": "es",
+      "word": "pan",
+      "desc_lang": "en",
+      "desc": "bread",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1008",
+      "lang": "es",
+      "word": "pan",
+      "desc_lang": "en",
+      "desc": "bread",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": "1007",
+      "lang": "es",
+      "word": "leche",
+      "desc_lang": "en",
+      "desc": "milk",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
       "id": "1006",
       "lang": "es",
       "word": "cerveza",

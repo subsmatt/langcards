@@ -1,17 +1,16 @@
 import Header from "./Header";
 import PageContent from "./PageContent";
-import { ThemeProvider } from "../contexts/ThemeContext";
 import { AuthProvider } from "../contexts/AuthContext";
+import { Provider as ReduxProvider } from "react-redux";
+import store from "../redux/store";
 
 function App(){
-    const startingTheme = "light";
-
     return (
         <AuthProvider initialLoggedInUser={"Smith"}>
-            <ThemeProvider startingTheme={startingTheme}>
+            <ReduxProvider store={store}>
                 <Header />
                 <PageContent />
-            </ThemeProvider>
+            </ReduxProvider>
         </AuthProvider>
     );
 }

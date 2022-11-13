@@ -1,16 +1,14 @@
 import { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useSelector } from "react-redux";
 import { ToolbarContext } from "../contexts/ToolbarContext";
-import { sampleData } from "../data/sampleData";
-//import useRequestDelay, {REQUEST_STATUS}  from "../hooks/useRequestDelay";
 import useRequestRest, {REQUEST_STATUS}  from "../hooks/useRequestRest";
 import ReactPlaceholder from "react-placeholder/lib";
 import Card from "./Card";
 import CardAdd from "./CardAdd";
 
 function CardList(){
-    // Get theme context
-    const {theme} = useContext(ThemeContext);
+    // Get theme settings
+    const theme = useSelector((state) => state.toolbar.theme);
     const extraThemeContainerClass = theme === "light" ? "" : "bg-opacity-75"
 
     // Get toolbar context
