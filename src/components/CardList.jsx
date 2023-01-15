@@ -32,10 +32,12 @@ function CardList(){
                 <CardAdd insertRecord={insertRecord}/>
                 <div className="row">
                     {data.filter(function(rec){
-                        return (
-                            rec.word.toLowerCase().includes(searchQuery) ||
-                            rec.desc.toLowerCase().includes(searchQuery) 
-                        )
+                            if (Object.hasOwn(rec, "word") && rec.word !== null && Object.hasOwn(rec, "desc") && rec.desc !== null) {
+                                return rec.word.toLowerCase().includes(searchQuery) || rec.desc.toLowerCase().includes(searchQuery);
+                            } else {
+                                console.log("ERROR: malformed data, check that both 'word' and 'desc' properties are defined.");
+                                return false;
+                            }
                         }).map(function(rec){                        
                             return (
                                 <Card key={rec.id} rec={rec} updateRecord={updateRecord} insertRecord={insertRecord} deleteRecord={deleteRecord}/>

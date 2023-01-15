@@ -1,6 +1,36 @@
 {
   "cards": [
     {
+      "id": "1018",
+      "lang": "es",
+      "word": "miel",
+      "desc_lang": "en",
+      "desc": "honey",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": false,
+      "iknowthis": false
+    },
+    {
+      "id": 1017,
+      "lang": "es",
+      "word": "cafe",
+      "desc_lang": "en",
+      "desc": "coffee",
+      "tags": [
+        "food"
+      ],
+      "type": "noun",
+      "hits": 0,
+      "examples": [],
+      "familiar": true,
+      "iknowthis": false
+    },
+    {
       "id": "1016",
       "lang": "es",
       "word": "cereza",

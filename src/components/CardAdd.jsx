@@ -9,19 +9,22 @@ function CardAdd({insertRecord, loggedInUser}){
                 e.preventDefault();
                 const word = window.prompt("Enter spanish word:", "");
                 const desc = window.prompt("Enter description", "");
-                insertRecord({
-                    id: "1110",
-                    lang: "es",
-                    word: word,
-                    desc_lang: "en",
-                    desc: desc,
-                    tags: ["food"],
-                    type: "noun",
-                    hits: 0,
-                    examples: [],
-                    familiar: false,
-                    iknowthis: false,
-                });
+                
+                if (word && desc) {
+                    insertRecord({
+                        id: "1110",
+                        lang: "es",
+                        word: word,
+                        desc_lang: "en",
+                        desc: desc,
+                        tags: ["food"],
+                        type: "noun",
+                        hits: 0,
+                        examples: [],
+                        familiar: false,
+                        iknowthis: false,
+                    });
+                }
             }}>
                 + Add
             </i>

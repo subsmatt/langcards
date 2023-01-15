@@ -80,7 +80,7 @@ export default async function handler(req, res) {
             const readFileData = await readFile(jsonFile);
             await delay(1000);
             const sampleData = JSON.parse(readFileData).cards;
-    
+
             if (sampleData){
                 const idNew = sampleData.reduce((accumulator, currentValue) => {
                     const idCurrent = parseInt(currentValue.id);
