@@ -1,55 +1,146 @@
 "use strict";
-/*
- * ATTENTION: An "eval-source-map" devtool has been used.
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 (() => {
 var exports = {};
-exports.id = "pages/api/cards/[id]";
-exports.ids = ["pages/api/cards/[id]"];
+exports.id = 999;
+exports.ids = [999];
 exports.modules = {
 
-/***/ "fs":
-/*!*********************!*\
-  !*** external "fs" ***!
-  \*********************/
+/***/ 147:
 /***/ ((module) => {
 
 module.exports = require("fs");
 
 /***/ }),
 
-/***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
+/***/ 17:
 /***/ ((module) => {
 
 module.exports = require("path");
 
 /***/ }),
 
-/***/ "util":
-/*!***********************!*\
-  !*** external "util" ***!
-  \***********************/
+/***/ 837:
 /***/ ((module) => {
 
 module.exports = require("util");
 
 /***/ }),
 
-/***/ "(api)/./pages/api/cards/[id].js":
-/*!*********************************!*\
-  !*** ./pages/api/cards/[id].js ***!
-  \*********************************/
+/***/ 727:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ handler)\n/* harmony export */ });\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! path */ \"path\");\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ \"fs\");\n/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst { promisify  } = __webpack_require__(/*! util */ \"util\");\nconst readFile = promisify((fs__WEBPACK_IMPORTED_MODULE_1___default().readFile));\nconst writeFile = promisify((fs__WEBPACK_IMPORTED_MODULE_1___default().writeFile));\nconst delay = (ms)=>new Promise((resolve)=>{\n        setTimeout(resolve, ms);\n    });\nasync function handler(req, res) {\n    const method = req === null || req === void 0 ? void 0 : req.method;\n    const id = parseInt(req === null || req === void 0 ? void 0 : req.query.id);\n    const recordFromBody = req === null || req === void 0 ? void 0 : req.body;\n    switch(method){\n        case \"POST\":\n            await postMethod();\n            break;\n        case \"PUT\":\n            await putMethod();\n            break;\n        case \"DELETE\":\n            deleteMethod();\n            break;\n        default:\n            res.status(501).send(`Method ${method} not implemented`);\n            console.log(`Method ${method} not implemented`);\n    }\n    //const jsonFile = path.resolve(\"./\", \"db.json\");\n    async function putMethod() {\n        try {\n            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve(\"./\", \"db.json\");\n            const readFileData = await readFile(jsonFile);\n            await delay(1000);\n            const sampleData = JSON.parse(readFileData).cards;\n            if (sampleData) {\n                const newCardsArray = sampleData.map(function(rec) {\n                    return rec.id == id ? recordFromBody : rec;\n                });\n                writeFile(jsonFile, JSON.stringify({\n                    cards: newCardsArray\n                }, null, 2));\n                res.setHeader(\"Content-Type\", \"application/json\");\n                res.status(200).send(JSON.stringify(recordFromBody, null, 2));\n                console.log(`PUT /api/cards/${id} status: 200`);\n            }\n        } catch (err) {\n            res.status(500).send(`PUT /api/cards/${id} Status: 500`);\n            console.log(`PUT /api/cards/${id} Error: `, err);\n        }\n    }\n    async function deleteMethod() {\n        try {\n            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve(\"./\", \"db.json\");\n            const readFileData = await readFile(jsonFile);\n            await delay(1000);\n            const sampleData = JSON.parse(readFileData).cards;\n            if (sampleData) {\n                const newCardsArray = sampleData.filter(function(rec) {\n                    return rec.id != id;\n                });\n                writeFile(jsonFile, JSON.stringify({\n                    cards: newCardsArray\n                }, null, 2));\n                res.setHeader(\"Content-Type\", \"application/json\");\n                res.status(200).send(JSON.stringify(sampleData.find((rec)=>rec.id == id), null, 2));\n                console.log(`DELETE /api/cards/${id} status: 200`);\n            }\n        } catch (err) {\n            res.status(500).send(`DELETE /api/cards/${id} Status: 500`);\n            console.log(`DELETE /api/cards/${id} Error: `, err);\n        }\n    }\n    async function postMethod() {\n        try {\n            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve(\"./\", \"db.json\");\n            const readFileData = await readFile(jsonFile);\n            await delay(1000);\n            const sampleData = JSON.parse(readFileData).cards;\n            if (sampleData) {\n                const idNew = sampleData.reduce((accumulator, currentValue)=>{\n                    const idCurrent = parseInt(currentValue.id);\n                    return idCurrent > accumulator ? idCurrent : accumulator;\n                }, 0) + 1;\n                const newCardRec = {\n                    ...recordFromBody,\n                    id: idNew.toString()\n                };\n                const newCardsArray = [\n                    newCardRec,\n                    ...sampleData\n                ];\n                writeFile(jsonFile, JSON.stringify({\n                    cards: newCardsArray\n                }, null, 2));\n                res.setHeader(\"Content-Type\", \"application/json\");\n                res.status(200).send(JSON.stringify(newCardRec, null, 2));\n                console.log(`POST /api/cards/${idNew} status: 200`);\n            }\n        } catch (err) {\n            res.status(500).send(`POST /api/cards/${id} Status: 500`);\n            console.log(`POST /api/cards/${id} Error: `, err);\n        }\n    }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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O2dCQUM3RCxDQUFDLEVBQUUsQ0FBQyxDQUFDLEdBQUcsQ0FBQztnQkFFVCxNQUFNRyxVQUFVLEdBQUc7b0JBQUMsR0FBRzVCLGNBQWM7b0JBQUVILEVBQUUsRUFBRTBCLEtBQUssQ0FBQ00sUUFBUSxFQUFFO2lCQUFDO2dCQUU1RCxNQUFNZCxhQUFhLEdBQUc7b0JBQUNhLFVBQVU7dUJBQUtqQixVQUFVO2lCQUFDO2dCQUVqRHhCLFNBQVMsQ0FBQ3NCLFFBQVEsRUFBRUcsSUFBSSxDQUFDTSxTQUFTLENBQUM7b0JBQUNKLEtBQUssRUFBRUMsYUFBYTtpQkFBQyxFQUFFLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDO2dCQUVyRXBCLEdBQUcsQ0FBQ3dCLFNBQVMsQ0FBQyxjQUFjLEVBQUUsa0JBQWtCLENBQUMsQ0FBQztnQkFDbER4QixHQUFHLENBQUNVLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQ0MsSUFBSSxDQUFDTSxJQUFJLENBQUNNLFNBQVMsQ0FBQ1UsVUFBVSxFQUFFLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDO2dCQUMxRHJCLE9BQU8sQ0FBQ0MsR0FBRyxDQUFDLENBQUMsZ0JBQWdCLEVBQUVlLEtBQUssQ0FBQyxZQUFZLENBQUMsQ0FBQyxDQUFDO1lBQ3hELENBQUM7UUFDTCxFQUFFLE9BQU1ILEdBQUcsRUFBRTtZQUNUekIsR0FBRyxDQUFDVSxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUNDLElBQUksQ0FBQyxDQUFDLGdCQUFnQixFQUFFVCxFQUFFLENBQUMsWUFBWSxDQUFDLENBQUMsQ0FBQztZQUMxRFUsT0FBTyxDQUFDQyxHQUFHLENBQUMsQ0FBQyxnQkFBZ0IsRUFBRVgsRUFBRSxDQUFDLFFBQVEsQ0FBQyxFQUFFdUIsR0FBRyxDQUFDLENBQUM7UUFDdEQsQ0FBQztJQUNMLENBQUM7QUFDTCxDQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbGFuZ2NhcmRzLy4vcGFnZXMvYXBpL2NhcmRzL1tpZF0uanM/MjI5NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgcGF0aCBmcm9tIFwicGF0aFwiO1xuaW1wb3J0IGZzIGZyb20gXCJmc1wiO1xuXG5jb25zdCB7cHJvbWlzaWZ5fSA9IHJlcXVpcmUoXCJ1dGlsXCIpO1xuY29uc3QgcmVhZEZpbGUgPSBwcm9taXNpZnkoZnMucmVhZEZpbGUpO1xuY29uc3Qgd3JpdGVGaWxlID0gcHJvbWlzaWZ5KGZzLndyaXRlRmlsZSk7XG5jb25zdCBkZWxheSA9IChtcykgPT4gbmV3IFByb21pc2UoKHJlc29sdmUpID0+IHsgc2V0VGltZW91dChyZXNvbHZlLCBtcyk7IH0pO1xuXG5leHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBoYW5kbGVyKHJlcSwgcmVzKSB7XG4gICAgY29uc3QgbWV0aG9kID0gcmVxPy5tZXRob2Q7XG4gICAgY29uc3QgaWQgPSBwYXJzZUludChyZXE/LnF1ZXJ5LmlkKTtcbiAgICBjb25zdCByZWNvcmRGcm9tQm9keSA9IHJlcT8uYm9keTtcblxuICAgIHN3aXRjaCAobWV0aG9kKSB7XG4gICAgICAgIGNhc2UgXCJQT1NUXCI6XG4gICAgICAgICAgICBhd2FpdCBwb3N0TWV0aG9kKCk7XG4gICAgICAgICAgICBicmVhaztcbiAgICAgICAgY2FzZSBcIlBVVFwiOlxuICAgICAgICAgICAgYXdhaXQgcHV0TWV0aG9kKCk7XG4gICAgICAgICAgICBicmVhaztcbiAgICAgICAgY2FzZSBcIkRFTEVURVwiOlxuICAgICAgICAgICAgZGVsZXRlTWV0aG9kKCk7XG4gICAgICAgICAgICBicmVhaztcbiAgICAgICAgZGVmYXVsdDpcbiAgICAgICAgICAgIHJlcy5zdGF0dXMoNTAxKS5zZW5kKGBNZXRob2QgJHttZXRob2R9IG5vdCBpbXBsZW1lbnRlZGApO1xuICAgICAgICAgICAgY29uc29sZS5sb2coYE1ldGhvZCAke21ldGhvZH0gbm90IGltcGxlbWVudGVkYCk7XG4gICAgfVxuXG4gICAgLy9jb25zdCBqc29uRmlsZSA9IHBhdGgucmVzb2x2ZShcIi4vXCIsIFwiZGIuanNvblwiKTtcblxuICAgIGFzeW5jIGZ1bmN0aW9uIHB1dE1ldGhvZCgpIHtcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGNvbnN0IGpzb25GaWxlID0gcGF0aC5yZXNvbHZlKFwiLi9cIiwgXCJkYi5qc29uXCIpO1xuICAgICAgICAgICAgY29uc3QgcmVhZEZpbGVEYXRhID0gYXdhaXQgcmVhZEZpbGUoanNvbkZpbGUpO1xuICAgICAgICAgICAgYXdhaXQgZGVsYXkoMTAwMCk7XG4gICAgICAgICAgICBjb25zdCBzYW1wbGVEYXRhID0gSlNPTi5wYXJzZShyZWFkRmlsZURhdGEpLmNhcmRzO1xuICAgIFxuICAgICAgICAgICAgaWYgKHNhbXBsZURhdGEpe1xuICAgICAgICAgICAgICAgIGNvbnN0IG5ld0NhcmRzQXJyYXkgPSBzYW1wbGVEYXRhLm1hcChmdW5jdGlvbiAocmVjKXtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJlYy5pZCA9PSBpZCA/IHJlY29yZEZyb21Cb2R5IDogcmVjO1xuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgIHdyaXRlRmlsZShqc29uRmlsZSwgSlNPTi5zdHJpbmdpZnkoe2NhcmRzOiBuZXdDYXJkc0FycmF5fSwgbnVsbCwgMikpO1xuXG4gICAgICAgICAgICAgICAgcmVzLnNldEhlYWRlcihcIkNvbnRlbnQtVHlwZVwiLCBcImFwcGxpY2F0aW9uL2pzb25cIik7XG4gICAgICAgICAgICAgICAgcmVzLnN0YXR1cygyMDApLnNlbmQoSlNPTi5zdHJpbmdpZnkocmVjb3JkRnJvbUJvZHksIG51bGwsIDIpKTtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmxvZyhgUFVUIC9hcGkvY2FyZHMvJHtpZH0gc3RhdHVzOiAyMDBgKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSBjYXRjaChlcnIpIHtcbiAgICAgICAgICAgIHJlcy5zdGF0dXMoNTAwKS5zZW5kKGBQVVQgL2FwaS9jYXJkcy8ke2lkfSBTdGF0dXM6IDUwMGApO1xuICAgICAgICAgICAgY29uc29sZS5sb2coYFBVVCAvYXBpL2NhcmRzLyR7aWR9IEVycm9yOiBgLCBlcnIpO1xuICAgICAgICB9XG4gICAgfVxuIFxuICAgIGFzeW5jIGZ1bmN0aW9uIGRlbGV0ZU1ldGhvZCgpIHtcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGNvbnN0IGpzb25GaWxlID0gcGF0aC5yZXNvbHZlKFwiLi9cIiwgXCJkYi5qc29uXCIpO1xuICAgICAgICAgICAgY29uc3QgcmVhZEZpbGVEYXRhID0gYXdhaXQgcmVhZEZpbGUoanNvbkZpbGUpO1xuICAgICAgICAgICAgYXdhaXQgZGVsYXkoMTAwMCk7XG4gICAgICAgICAgICBjb25zdCBzYW1wbGVEYXRhID0gSlNPTi5wYXJzZShyZWFkRmlsZURhdGEpLmNhcmRzO1xuICAgIFxuICAgICAgICAgICAgaWYgKHNhbXBsZURhdGEpe1xuICAgICAgICAgICAgICAgIGNvbnN0IG5ld0NhcmRzQXJyYXkgPSBzYW1wbGVEYXRhLmZpbHRlcihmdW5jdGlvbiAocmVjKXtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJlYy5pZCAhPSBpZDtcbiAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgICB3cml0ZUZpbGUoanNvbkZpbGUsIEpTT04uc3RyaW5naWZ5KHtjYXJkczogbmV3Q2FyZHNBcnJheX0sIG51bGwsIDIpKTtcblxuICAgICAgICAgICAgICAgIHJlcy5zZXRIZWFkZXIoXCJDb250ZW50LVR5cGVcIiwgXCJhcHBsaWNhdGlvbi9qc29uXCIpO1xuICAgICAgICAgICAgICAgIHJlcy5zdGF0dXMoMjAwKS5zZW5kKEpTT04uc3RyaW5naWZ5KHNhbXBsZURhdGEuZmluZChyZWMgPT4gcmVjLmlkID09IGlkKSwgbnVsbCwgMikpO1xuICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGBERUxFVEUgL2FwaS9jYXJkcy8ke2lkfSBzdGF0dXM6IDIwMGApO1xuICAgICAgICAgICAgfVxuICAgICAgICB9IGNhdGNoKGVycikge1xuICAgICAgICAgICAgcmVzLnN0YXR1cyg1MDApLnNlbmQoYERFTEVURSAvYXBpL2NhcmRzLyR7aWR9IFN0YXR1czogNTAwYCk7XG4gICAgICAgICAgICBjb25zb2xlLmxvZyhgREVMRVRFIC9hcGkvY2FyZHMvJHtpZH0gRXJyb3I6IGAsIGVycik7XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICBhc3luYyBmdW5jdGlvbiBwb3N0TWV0aG9kKCkge1xuICAgICAgICB0cnkge1xuICAgICAgICAgICAgY29uc3QganNvbkZpbGUgPSBwYXRoLnJlc29sdmUoXCIuL1wiLCBcImRiLmpzb25cIik7XG4gICAgICAgICAgICBjb25zdCByZWFkRmlsZURhdGEgPSBhd2FpdCByZWFkRmlsZShqc29uRmlsZSk7XG4gICAgICAgICAgICBhd2FpdCBkZWxheSgxMDAwKTtcbiAgICAgICAgICAgIGNvbnN0IHNhbXBsZURhdGEgPSBKU09OLnBhcnNlKHJlYWRGaWxlRGF0YSkuY2FyZHM7XG5cbiAgICAgICAgICAgIGlmIChzYW1wbGVEYXRhKXtcbiAgICAgICAgICAgICAgICBjb25zdCBpZE5ldyA9IHNhbXBsZURhdGEucmVkdWNlKChhY2N1bXVsYXRvciwgY3VycmVudFZhbHVlKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIGNvbnN0IGlkQ3VycmVudCA9IHBhcnNlSW50KGN1cnJlbnRWYWx1ZS5pZCk7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybiBpZEN1cnJlbnQgPiBhY2N1bXVsYXRvciA/IGlkQ3VycmVudCA6IGFjY3VtdWxhdG9yO1xuICAgICAgICAgICAgICAgIH0sIDApICsgMTtcblxuICAgICAgICAgICAgICAgIGNvbnN0IG5ld0NhcmRSZWMgPSB7Li4ucmVjb3JkRnJvbUJvZHksIGlkOiBpZE5ldy50b1N0cmluZygpfTtcblxuICAgICAgICAgICAgICAgIGNvbnN0IG5ld0NhcmRzQXJyYXkgPSBbbmV3Q2FyZFJlYywgLi4uc2FtcGxlRGF0YV07XG5cbiAgICAgICAgICAgICAgICB3cml0ZUZpbGUoanNvbkZpbGUsIEpTT04uc3RyaW5naWZ5KHtjYXJkczogbmV3Q2FyZHNBcnJheX0sIG51bGwsIDIpKTtcblxuICAgICAgICAgICAgICAgIHJlcy5zZXRIZWFkZXIoXCJDb250ZW50LVR5cGVcIiwgXCJhcHBsaWNhdGlvbi9qc29uXCIpO1xuICAgICAgICAgICAgICAgIHJlcy5zdGF0dXMoMjAwKS5zZW5kKEpTT04uc3RyaW5naWZ5KG5ld0NhcmRSZWMsIG51bGwsIDIpKTtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmxvZyhgUE9TVCAvYXBpL2NhcmRzLyR7aWROZXd9IHN0YXR1czogMjAwYCk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH0gY2F0Y2goZXJyKSB7XG4gICAgICAgICAgICByZXMuc3RhdHVzKDUwMCkuc2VuZChgUE9TVCAvYXBpL2NhcmRzLyR7aWR9IFN0YXR1czogNTAwYCk7XG4gICAgICAgICAgICBjb25zb2xlLmxvZyhgUE9TVCAvYXBpL2NhcmRzLyR7aWR9IEVycm9yOiBgLCBlcnIpO1xuICAgICAgICB9XG4gICAgfVxufSJdLCJuYW1lcyI6WyJwYXRoIiwiZnMiLCJwcm9taXNpZnkiLCJyZXF1aXJlIiwicmVhZEZpbGUiLCJ3cml0ZUZpbGUiLCJkZWxheSIsIm1zIiwiUHJvbWlzZSIsInJlc29sdmUiLCJzZXRUaW1lb3V0IiwiaGFuZGxlciIsInJlcSIsInJlcyIsIm1ldGhvZCIsImlkIiwicGFyc2VJbnQiLCJxdWVyeSIsInJlY29yZEZyb21Cb2R5IiwiYm9keSIsInBvc3RNZXRob2QiLCJwdXRNZXRob2QiLCJkZWxldGVNZXRob2QiLCJzdGF0dXMiLCJzZW5kIiwiY29uc29sZSIsImxvZyIsImpzb25GaWxlIiwicmVhZEZpbGVEYXRhIiwic2FtcGxlRGF0YSIsIkpTT04iLCJwYXJzZSIsImNhcmRzIiwibmV3Q2FyZHNBcnJheSIsIm1hcCIsInJlYyIsInN0cmluZ2lmeSIsInNldEhlYWRlciIsImVyciIsImZpbHRlciIsImZpbmQiLCJpZE5ldyIsInJlZHVjZSIsImFjY3VtdWxhdG9yIiwiY3VycmVudFZhbHVlIiwiaWRDdXJyZW50IiwibmV3Q2FyZFJlYyIsInRvU3RyaW5nIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(api)/./pages/api/cards/[id].js\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ handler)
+/* harmony export */ });
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(147);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const { promisify  } = __webpack_require__(837);
+const readFile = promisify((fs__WEBPACK_IMPORTED_MODULE_1___default().readFile));
+const writeFile = promisify((fs__WEBPACK_IMPORTED_MODULE_1___default().writeFile));
+const delay = (ms)=>new Promise((resolve)=>{
+        setTimeout(resolve, ms);
+    });
+async function handler(req, res) {
+    const method = req?.method;
+    const id = parseInt(req?.query.id);
+    const recordFromBody = req?.body;
+    switch(method){
+        case "POST":
+            await postMethod();
+            break;
+        case "PUT":
+            await putMethod();
+            break;
+        case "DELETE":
+            deleteMethod();
+            break;
+        default:
+            res.status(501).send(`Method ${method} not implemented`);
+            console.log(`Method ${method} not implemented`);
+    }
+    //const jsonFile = path.resolve("./", "db.json");
+    async function putMethod() {
+        try {
+            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve("./", "db.json");
+            const readFileData = await readFile(jsonFile);
+            await delay(1000);
+            const sampleData = JSON.parse(readFileData).cards;
+            if (sampleData) {
+                const newCardsArray = sampleData.map(function(rec) {
+                    return rec.id == id ? recordFromBody : rec;
+                });
+                writeFile(jsonFile, JSON.stringify({
+                    cards: newCardsArray
+                }, null, 2));
+                res.setHeader("Content-Type", "application/json");
+                res.status(200).send(JSON.stringify(recordFromBody, null, 2));
+                console.log(`PUT /api/cards/${id} status: 200`);
+            }
+        } catch (err) {
+            res.status(500).send(`PUT /api/cards/${id} Status: 500`);
+            console.log(`PUT /api/cards/${id} Error: `, err);
+        }
+    }
+    async function deleteMethod() {
+        try {
+            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve("./", "db.json");
+            const readFileData = await readFile(jsonFile);
+            await delay(1000);
+            const sampleData = JSON.parse(readFileData).cards;
+            if (sampleData) {
+                const newCardsArray = sampleData.filter(function(rec) {
+                    return rec.id != id;
+                });
+                writeFile(jsonFile, JSON.stringify({
+                    cards: newCardsArray
+                }, null, 2));
+                res.setHeader("Content-Type", "application/json");
+                res.status(200).send(JSON.stringify(sampleData.find((rec)=>rec.id == id), null, 2));
+                console.log(`DELETE /api/cards/${id} status: 200`);
+            }
+        } catch (err) {
+            res.status(500).send(`DELETE /api/cards/${id} Status: 500`);
+            console.log(`DELETE /api/cards/${id} Error: `, err);
+        }
+    }
+    async function postMethod() {
+        try {
+            const jsonFile = path__WEBPACK_IMPORTED_MODULE_0___default().resolve("./", "db.json");
+            const readFileData = await readFile(jsonFile);
+            await delay(1000);
+            const sampleData = JSON.parse(readFileData).cards;
+            if (sampleData) {
+                const idNew = sampleData.reduce((accumulator, currentValue)=>{
+                    const idCurrent = parseInt(currentValue.id);
+                    return idCurrent > accumulator ? idCurrent : accumulator;
+                }, 0) + 1;
+                const newCardRec = {
+                    ...recordFromBody,
+                    id: idNew.toString()
+                };
+                const newCardsArray = [
+                    newCardRec,
+                    ...sampleData
+                ];
+                writeFile(jsonFile, JSON.stringify({
+                    cards: newCardsArray
+                }, null, 2));
+                res.setHeader("Content-Type", "application/json");
+                res.status(200).send(JSON.stringify(newCardRec, null, 2));
+                console.log(`POST /api/cards/${idNew} status: 200`);
+            }
+        } catch (err) {
+            res.status(500).send(`POST /api/cards/${id} Status: 500`);
+            console.log(`POST /api/cards/${id} Error: `, err);
+        }
+    }
+}
+
 
 /***/ })
 
@@ -60,7 +151,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = (__webpack_exec__("(api)/./pages/api/cards/[id].js"));
+var __webpack_exports__ = (__webpack_exec__(727));
 module.exports = __webpack_exports__;
 
 })();
